@@ -1,0 +1,71 @@
+<app-header></app-header>
+<div class="col-md-6">
+    <form [formGroup]="productForm">
+        <div class="mb-3">
+            <label for="product_id" class="form-label">Product ID</label>
+            <input type="text" class="form-control" id="product_id" placeholder="Product id" formControlName="id" [readOnly]="true">
+        </div>
+        <div class="mb-3">
+            <label for="product_name" class="form-label">Product Name</label>
+            <input type="text" class="form-control" id="product_name" placeholder="Product name" formControlName="name"
+            [class.valid] ="productForm.get('name')?.valid && (productForm.get('name')?.dirty || productForm.get('name')?.touched)"
+            [class.invalid] ="productForm.get('name')?.invalid && (productForm.get('name')?.dirty || productForm.get('name')?.touched)">
+            <div *ngIf="productForm.get('name')?.invalid && 
+                    productForm.get('name')?.errors && 
+                    (productForm.get('name')?.dirty || productForm.get('name')?.touched)">
+                <small class="text-danger"
+                    *ngIf="productForm.get('name')?.hasError('required')">
+                    This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="product_price" class="form-label">price</label>
+            <input type="text" class="form-control" id="product_price" placeholder="Product price" formControlName="price"
+            [class.valid] ="productForm.get('price')?.valid && (productForm.get('price')?.dirty || productForm.get('price')?.touched)"
+            [class.invalid] ="productForm.get('price')?.invalid && (productForm.get('price')?.dirty || productForm.get('price')?.touched)">
+            <div *ngIf="productForm.get('price')?.invalid && 
+                    productForm.get('price')?.errors && 
+                    (productForm.get('price')?.dirty || productForm.get('price')?.touched)">
+                <small class="text-danger"
+                    *ngIf="productForm.get('price')?.hasError('required')">
+                    This field is required.
+                </small>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <button [disabled]="productForm.invalid" class="btn btn-primary mb-3" id="product_save" (click)="saveProduct()">Add product</button>
+        </div>
+    </form>
+</div>
+
+<div>
+    <table width="50%" class="products" rules="all">
+        <thead>
+            <th>ID</th>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th>Action</th>
+        </thead>
+        <tbody *ngIf="productList.length then productsListBlock else emptyProductBlock">
+        </tbody>
+    </table>
+</div>
+
+<ng-template #productsListBlock>
+    <tr *ngFor="let product of productList">
+        <td>{{ product.id }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.price }}</td>
+        <td>
+            <button class="btn btn-success me-3" (click)="editProduct(product)"><i class="bi bi-pencil-square"></i></button>
+            <button class="btn btn-danger" (click)="deleteProduct(product.id)"><i class="bi bi-trash-fill"></i></button>
+        </td>
+    </tr>
+</ng-template>
+<ng-template #emptyProductBlock>
+    <tr>
+        <td>No product available.</td>
+    </tr>
+</ng-template>

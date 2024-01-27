@@ -1,0 +1,17 @@
+<app-header></app-header>
+<div class="col-md-6">
+    <form [formGroup]="loginForm">
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" placeholder="Username" formControlName="username">
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="text" class="form-control" id="password" placeholder="Password" formControlName="password">
+        </div>
+
+        <div class="mb-3">
+            <button class="btn btn-primary mb-3" id="login" (click)="onLogin()">Login</button>
+        </div>
+    </form>
+</div>

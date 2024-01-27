@@ -1,0 +1,9 @@
+table.products{
+    border:1px solid #000000; 
+    text-align: center; 
+    margin: auto;    
+}
+
+table.a{
+    cursor: pointer;
+}
